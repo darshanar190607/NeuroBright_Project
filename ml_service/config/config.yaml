@@ -1,0 +1,86 @@
+# NeuroBright Configuration File
+
+hardware:
+  port: "COM5"
+  baud_rate: 230400
+  sample_rate: 500
+  n_channels: 1
+  channel_names: ["Fp1"]
+  adc_resolution: 14
+  adc_reference_voltage: 3.3
+
+signal:
+  bandpass_low: 1.0
+  bandpass_high: 45.0
+  notch_freq: 50.0
+  notch_quality: 30
+  filter_order: 4
+  artifact_threshold_uv: 500.0
+  flatline_threshold: 0.5
+
+windowing:
+  window_seconds: 2.0
+  step_seconds: 0.5
+  window_samples: 1000
+  step_samples: 250
+
+bands:
+  delta: [1, 4]
+  theta: [4, 8]
+  alpha: [8, 12]
+  beta: [13, 30]
+  gamma: [30, 45]
+
+model:
+  architecture: "EEGNet"
+  n_classes: 3
+  n_channels: 1
+  n_samples: 1000
+  F1: 16
+  D: 4
+  F2: 64
+  dropout: 0.2765
+  class_names: ["focused", "drowsy", "neutral"]
+
+training:
+  epochs: 194
+  batch_size: 64
+  learning_rate: 0.009923
+  weight_decay: 0.000069
+  scheduler: "cosine"
+  patience: 50
+  val_split: 0.2
+  random_seed: 42
+
+optuna:
+  n_trials: 50
+  direction: "maximize"
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  frontend_url: "http://localhost:3000"
+  websocket_interval: 0.5
+
+recording:
+  states:
+    focused:
+      label: 0
+      duration: 1200
+      instruction: "Solve hard LeetCode/CodeChef problems. Stay physically still."
+    drowsy:
+      label: 1
+      duration: 1200
+      instruction: "Late night, lie back, eyes half open, listen to brown noise."
+    stressed:
+      label: 2
+      duration: 1200
+      instruction: "Play fast-paced game or take timed Stroop test with alarm."
+  baseline_duration: 120
+  buffer_seconds: 30
+
+paths:
+  raw_data: "data/raw/"
+  processed_data: "data/processed/"
+  saved_models: "models/saved/"
+  logs: "logs/"
