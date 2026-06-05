@@ -24,7 +24,7 @@ NeuroBright/
 │   ├── models/              # Saved model checkpoints
 │   └── app.py               # CLI entry point
 │
-├── frontend/                # React TypeScript UI (separate repo)
+├── web-app/                # React TypeScript UI (separate repo)
 └── NeuroBright_Firmware/    # Arduino firmware (PlatformIO)
 ```
 
